@@ -1,0 +1,140 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: var(--dot-pattern);
+  background-color: var(--color-bg-base);
+  background-size: var(--dot-size) var(--dot-size);
+  overflow: hidden;
+}
+
+.heading {
+  text-align: center;
+  padding: 48px 24px 0;
+  z-index: 2;
+}
+
+.title {
+  text-transform: uppercase;
+  padding-top: 88px;
+}
+
+.subtitle {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.02em;
+}
+
+/* --- Hero --- */
+
+.heroArea {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-subtle);
+  pointer-events: none;
+}
+
+.circleOuter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100vw - 240px);
+  height: calc(100vw - 240px);
+  border-radius: 50%;
+  border: 1px solid var(--color-border-subtle);
+  pointer-events: none;
+}
+
+.heroImg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: min(47.5vw, 525px);
+  height: min(100vh, 875px);
+  border-radius: 4px 4px 0 0;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* --- Logo mark --- */
+
+.logoMark {
+  grid-column: 1 / 4;
+  justify-self: end;
+  align-self: center;
+  z-index: 1;
+  pointer-events: none;
+  line-height: 0;
+}
+
+/* --- Mode panel --- */
+
+.panelAnchor {
+  grid-column: 9 / 13;
+  justify-self: start;
+  align-self: center;
+  z-index: 1;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 220px;
+}
+
+.panelIcon {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.panelLabel {
+  text-transform: uppercase;
+}
+
+.panelDesc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.enterBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 20px 16px;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  border-radius: 999px;
+  margin-top: 4px;
+}
+
+/* --- Toggle --- */
+
+.toggleWrap {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -1,0 +1,182 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.echo-small,
+.echo-big {
+  background: #BDBDBD;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+/* --- Variants --- */
+
+.gaze {
+  border-radius: 4px;
+}
+
+.echo-small {
+  border-radius: 8px;
+  animation: card-enter 0.4s ease-out both;
+}
+
+.echo-big {
+  border-radius: 12px;
+  animation: card-enter 0.4s ease-out both;
+}
+
+.thumbnail {
+  border-radius: 4px;
+  animation: card-enter 0.4s ease-out both;
+}
+
+.thumbnail .imageWrap {
+  aspect-ratio: 3 / 4;
+}
+
+.thumbnail .body {
+  display: none;
+}
+
+@keyframes card-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Image --- */
+
+.imageWrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.gaze .imageWrap {
+  aspect-ratio: 3 / 4;
+}
+
+.echo-small .imageWrap {
+  aspect-ratio: 3 / 4;
+  flex-grow: 1;
+}
+
+.echo-big .imageWrap {
+  aspect-ratio: 5 / 6;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* --- Body --- */
+
+.body {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.echo-big .body {
+  padding: 14px 16px 16px;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.name {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.gaze .name {
+  min-height: calc(12px * 1.3 * 2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.echo-big .name {
+  font-size: 14px;
+}
+
+.price {
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.echo-big .price {
+  font-size: 14px;
+}
+
+/* --- Color swatches (gaze only) --- */
+
+.swatches {
+  display: flex;
+  gap: 6px;
+}
+
+.swatch {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+/* --- Description (echo-big) --- */
+
+.description {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* --- Karaoke (echo-big) --- */
+
+.karaoke {
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.word {
+  display: inline;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.word--unread {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.word--active {
+  color: var(--color-text-primary);
+  opacity: 1;
+  font-weight: 500;
+}
+
+.word--read {
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+}

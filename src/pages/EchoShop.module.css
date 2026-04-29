@@ -1,0 +1,80 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: var(--dot-pattern);
+  background-color: var(--color-bg-base);
+  background-size: var(--dot-size) var(--dot-size);
+  padding-bottom: 120px;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 32px 0;
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.searchWrap {
+  width: 100%;
+  max-width: 545px;
+  margin-bottom: 20px;
+}
+
+.count {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin-bottom: 16px;
+  align-self: flex-start;
+  padding-left: 8px;
+}
+
+/* --- Product grid: small | small | BIG | small | small --- */
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
+  gap: 12px;
+  align-items: stretch;
+  width: 100%;
+}
+
+/* --- Waveform pinned at bottom --- */
+
+.waveformWrap {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  --waveform-color: var(--color-black);
+}
+
+.waveformUser {
+  --waveform-color: #9E0003;
+}
+
+.transcript {
+  margin: 6px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+/* --- Floating toggle --- */
+
+.toggleWrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+}

@@ -1,0 +1,92 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: var(--dot-pattern);
+  background-color: var(--color-bg-base);
+  background-size: var(--dot-size) var(--dot-size);
+}
+
+.main {
+  flex: 1;
+  padding: 56px 32px 80px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-bottom: 12px;
+  letter-spacing: 0.02em;
+}
+
+.sep {
+  opacity: 0.5;
+}
+
+.title {
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* --- Filter row --- */
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tab {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  background: transparent;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.tab.tabActive {
+  background: var(--color-black);
+  color: var(--color-white);
+  border-color: var(--color-black);
+}
+
+.filterBtn {
+  padding: 6px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  background: transparent;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* --- Product grid --- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+
+/* --- Floating toggle --- */
+
+.toggleWrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+}

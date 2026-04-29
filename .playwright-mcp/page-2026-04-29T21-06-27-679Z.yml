@@ -1,0 +1,59 @@
+- generic [ref=e3]:
+  - banner [ref=e5]:
+    - navigation [ref=e6]:
+      - link "Shop" [ref=e7] [cursor=pointer]:
+        - /url: "#"
+      - link "World" [ref=e8] [cursor=pointer]:
+        - /url: "#"
+      - link "Info" [ref=e9] [cursor=pointer]:
+        - /url: "#"
+    - link "AI CRVN" [ref=e10] [cursor=pointer]:
+      - /url: /
+      - img "AI CRVN" [ref=e11]
+    - generic [ref=e13]: Cart [0]
+  - generic [ref=e15]:
+    - complementary [ref=e16]:
+      - navigation [ref=e17]:
+        - link "Home" [ref=e18] [cursor=pointer]:
+          - /url: /gaze
+        - generic [ref=e19]: ›
+        - link "Dresses" [ref=e20] [cursor=pointer]:
+          - /url: /echo-v2
+        - generic [ref=e21]: ›
+        - generic [ref=e22]: Pleated Collar Dress
+      - generic [ref=e23]:
+        - heading "PLEATED COLLAR DRESS" [level=1] [ref=e24]
+        - generic [ref=e25]: $340
+      - paragraph [ref=e26]: Women's long crepe dress with long flared sleeves. Long neckline for closure.
+      - generic [ref=e27]:
+        - generic [ref=e28]: "COLOR:"
+        - button "Forest" [pressed] [ref=e30] [cursor=pointer]
+      - generic [ref=e31]:
+        - generic [ref=e32]: "SIZE:"
+        - generic [ref=e33]:
+          - button "XS" [ref=e34] [cursor=pointer]
+          - button "S" [ref=e35] [cursor=pointer]
+          - button "M" [ref=e36] [cursor=pointer]
+          - button "L" [ref=e37] [cursor=pointer]
+      - generic [ref=e38]:
+        - button "DETAILS +" [ref=e40] [cursor=pointer]:
+          - generic [ref=e41]: DETAILS
+          - generic [ref=e42]: +
+        - button "MATERIALS +" [ref=e44] [cursor=pointer]:
+          - generic [ref=e45]: MATERIALS
+          - generic [ref=e46]: +
+        - button "SHIPPING +" [ref=e48] [cursor=pointer]:
+          - generic [ref=e49]: SHIPPING
+          - generic [ref=e50]: +
+      - button "ADD TO BAG" [ref=e51] [cursor=pointer]
+    - generic [ref=e52]:
+      - img "Pleated Collar Dress — view 1" [ref=e54]
+      - img "Pleated Collar Dress — view 2" [ref=e56]
+      - img "Pleated Collar Dress — view 3" [ref=e58]
+      - img "Pleated Collar Dress — view 4" [ref=e60]
+      - img "Pleated Collar Dress — view 5" [ref=e62]
+  - generic [ref=e64]:
+    - button "Switch to Gaze mode" [ref=e65] [cursor=pointer]:
+      - img [ref=e66]
+    - button "Switch to Echo mode" [ref=e72] [cursor=pointer]:
+      - img [ref=e73]

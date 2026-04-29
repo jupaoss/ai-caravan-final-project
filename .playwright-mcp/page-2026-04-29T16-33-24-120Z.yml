@@ -1,0 +1,60 @@
+- generic [ref=e3]:
+  - banner [ref=e5]:
+    - navigation [ref=e6]:
+      - link "Shop" [ref=e7] [cursor=pointer]:
+        - /url: "#"
+      - link "World" [ref=e8] [cursor=pointer]:
+        - /url: "#"
+      - link "Info" [ref=e9] [cursor=pointer]:
+        - /url: "#"
+    - link "AI CRVN" [ref=e10] [cursor=pointer]:
+      - /url: /
+      - img "AI CRVN" [ref=e11]
+    - generic [ref=e13]: Cart [0]
+  - generic [ref=e15]:
+    - complementary [ref=e16]:
+      - navigation [ref=e17]:
+        - link "Home" [ref=e18] [cursor=pointer]:
+          - /url: /gaze
+        - generic [ref=e19]: ›
+        - link "New in women" [ref=e20] [cursor=pointer]:
+          - /url: /gaze
+        - generic [ref=e21]: ›
+        - generic [ref=e22]: Superlight Dress winkle tricoline
+      - generic [ref=e23]:
+        - heading "SUPERLIGHT DRESS WINKLE TRICOLINE" [level=1] [ref=e24]
+        - generic [ref=e25]: $320
+      - paragraph [ref=e26]: Dress with thin straps and a straight neckline. Long length. Straight cut. Pleated fabric.
+      - generic [ref=e27]:
+        - generic [ref=e28]: "COLOR:"
+        - button "Red" [pressed] [ref=e30] [cursor=pointer]
+      - generic [ref=e31]:
+        - generic [ref=e32]: "SIZE:"
+        - generic [ref=e33]:
+          - button "XS" [ref=e34] [cursor=pointer]
+          - button "S" [ref=e35] [cursor=pointer]
+          - button "M" [ref=e36] [cursor=pointer]
+          - button "L" [ref=e37] [cursor=pointer]
+          - button "XL" [ref=e38] [cursor=pointer]
+      - generic [ref=e39]:
+        - button "DETAILS +" [ref=e41] [cursor=pointer]:
+          - generic [ref=e42]: DETAILS
+          - generic [ref=e43]: +
+        - button "MATERIALS +" [ref=e45] [cursor=pointer]:
+          - generic [ref=e46]: MATERIALS
+          - generic [ref=e47]: +
+        - button "SHIPPING +" [ref=e49] [cursor=pointer]:
+          - generic [ref=e50]: SHIPPING
+          - generic [ref=e51]: +
+      - button "ADD TO BAG" [ref=e52] [cursor=pointer]
+    - generic [ref=e53]:
+      - img "Superlight Dress winkle tricoline — view 1" [ref=e55]
+      - img "Superlight Dress winkle tricoline — view 2" [ref=e57]
+      - img "Superlight Dress winkle tricoline — view 3" [ref=e59]
+      - img "Superlight Dress winkle tricoline — view 4" [ref=e61]
+      - img "Superlight Dress winkle tricoline — view 5" [ref=e63]
+  - generic [ref=e65]:
+    - button "Switch to Gaze mode" [ref=e66] [cursor=pointer]:
+      - img [ref=e67]
+    - button "Switch to Echo mode" [ref=e73] [cursor=pointer]:
+      - img [ref=e74]

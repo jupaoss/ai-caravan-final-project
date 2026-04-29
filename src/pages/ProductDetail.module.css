@@ -1,0 +1,284 @@
+/* Background is fixed — dots stay static as content scrolls */
+.page {
+  min-height: 100vh;
+  background-image: var(--dot-pattern);
+  background-color: var(--color-bg-base);
+  background-size: var(--dot-size) var(--dot-size);
+  background-attachment: fixed;
+}
+
+/* Header: fully transparent, sticky */
+.stickyHeader {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: transparent;
+}
+
+/* Layout: images fill full width; panel is a fixed overlay */
+.layout {
+  position: relative;
+  width: 100%;
+}
+
+/* Product info: fixed overlay, left side — images scroll behind it */
+.panel {
+  position: fixed;
+  top: 48px;
+  left: 0;
+  width: 33.33vw;
+  height: calc(100vh - 48px);
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  background-image: var(--dot-pattern);
+  background-color: var(--color-bg-base);
+  background-size: var(--dot-size) var(--dot-size);
+  background-attachment: fixed;
+}
+
+.panel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+.breadcrumbLink {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.breadcrumbLink:hover {
+  opacity: 0.6;
+}
+
+.sep {
+  opacity: 0.4;
+}
+
+.breadcrumbCurrent {
+  color: var(--color-text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Name + price row — 40px below breadcrumb */
+.titleRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+/* Inherits global h1: Trim 300, 32px, -2px tracking */
+.name {
+  flex: 1;
+}
+
+.price {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 34px;
+  letter-spacing: -2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Description — 16px below title (title → body) */
+.description {
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--color-text-secondary);
+  margin: 16px 0 0;
+}
+
+/* Field rows (color, size) — 38px between sections */
+.field {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.fieldLabel {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+  min-width: 52px;
+}
+
+/* Color swatches */
+.swatches {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.15s;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.swatch:focus-visible {
+  outline-color: var(--color-black);
+}
+
+.swatchActive {
+  outline-color: var(--color-black);
+}
+
+/* Size buttons */
+.sizeOptions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sizeBtn {
+  padding: 5px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-subtle);
+  background: transparent;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.sizeBtn:hover {
+  border-color: var(--color-black);
+}
+
+.sizeBtnActive {
+  background: var(--color-black);
+  border-color: var(--color-black);
+  color: var(--color-white);
+}
+
+/* Accordions — 38px below size, no divider lines */
+.accordions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 38px;
+}
+
+.accordion {
+  /* no borders */
+}
+
+.accordionTrigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  background: none;
+  border: none;
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  cursor: pointer;
+  text-align: left;
+  transition: opacity 0.15s;
+}
+
+.accordionTrigger:hover {
+  opacity: 0.6;
+}
+
+.accordionMark {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1;
+  font-family: var(--font-display);
+  flex-shrink: 0;
+}
+
+.accordionBody {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  padding-bottom: 12px;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ADD TO BAG CTA — pushed to bottom */
+.addToBag {
+  width: 136px;
+  height: 48px;
+  border-radius: 999px;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: auto;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+}
+
+.addToBag:hover {
+  opacity: 0.75;
+}
+
+/* Images: full viewport width, scroll behind the fixed panel */
+.images {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.imageFrame {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* Toggle */
+.toggleWrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+}

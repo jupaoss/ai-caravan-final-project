@@ -1,0 +1,165 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: var(--dot-pattern);
+  background-color: var(--color-bg-base);
+  background-size: var(--dot-size) var(--dot-size);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px 180px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 520px;
+}
+
+.counter {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: #000000;
+}
+
+.question {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px 20px;
+  background: rgba(189, 189, 189, 0.6);
+  border: 1px solid #939393;
+  border-radius: 999px;
+  text-align: left;
+  transition: border-color 0.2s;
+}
+
+.option.selected {
+  background: rgba(189, 189, 189, 0.6);
+  border-color: #000000;
+}
+
+.radio {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #939393;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #CDCDCD;
+}
+
+.option.selected .radio {
+  background: var(--color-black);
+  border: none;
+}
+
+.radioDot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #CDCDCD;
+}
+
+.optionText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.optionLabel {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.optionHint {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+/* --- Fixed bottom: waveform + live transcription --- */
+
+.bottomBar {
+  position: fixed;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.waveformWrap {
+  --waveform-color: #000000;
+}
+
+.waveformResting {
+  --waveform-color: #716F6F;
+}
+
+.transcription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.transLine {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: #000000;
+}
+
+/* --- CTA: plain text matching header nav links --- */
+
+.cta {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+
+.cta:hover {
+  opacity: 0.6;
+}

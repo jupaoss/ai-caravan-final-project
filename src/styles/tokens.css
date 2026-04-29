@@ -1,0 +1,56 @@
+:root {
+  /* Primitives */
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+  --color-gray-700: #4B4B4B;
+  --color-gray-600: #595959;
+  --color-gray-500: #716F6F;
+  --color-gray-400: #939393;
+  --color-gray-200: #BDBDBD;
+  --color-red: #9E0003;
+
+  /* Semantic */
+  --color-bg-base: #CDCDCD;
+  --color-bg-surface: var(--color-white);
+  --color-bg-elevated: var(--color-gray-600);
+  --color-text-primary: var(--color-black);
+  --color-text-secondary: var(--color-gray-500);
+  --color-text-on-dark: var(--color-white);
+  --color-border-default: var(--color-gray-500);
+  --color-border-subtle: var(--color-gray-400);
+  --color-interactive-icon: var(--color-gray-500);
+
+  /* Typography */
+  --font-display: 'Trim', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Experience defaults (Gaze) */
+  --waveform-color: var(--color-black);
+  --target-size: 48px;
+
+  /* Dot grid background */
+  --dot-pattern: radial-gradient(circle, var(--color-gray-400) 1px, transparent 1px);
+  --dot-size: 114px;
+}
+
+[data-experience="echo"] {
+  --waveform-color: var(--color-red);
+}
+
+/* --- Typography utilities --- */
+
+.body-l {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  letter-spacing: 0.003em;
+}
+
+.body-m {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+  color: var(--color-gray-500);
+}

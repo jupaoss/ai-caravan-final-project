@@ -1,0 +1,242 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: var(--dot-pattern);
+  background-color: var(--color-bg-base);
+  background-size: var(--dot-size) var(--dot-size);
+}
+
+/* --- Main content area --- */
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 32px 160px;
+}
+
+/* --- Title: centered when empty, centered at top when results appear --- */
+
+.titleWrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titleWrapResults {
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* --- Results: 12-column grid --- */
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+  align-items: center;
+  width: 100%;
+}
+
+/* Col 3–4: breadcrumb */
+
+.leftSection {
+  grid-column: 3 / span 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Col 5–8: hero image — constrained, centered within its 4-col span */
+
+.heroWrap {
+  grid-column: 5 / span 4;
+  justify-self: center;
+  aspect-ratio: 2 / 3;
+  max-height: calc(100vh - 360px);
+  max-width: 320px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.heroImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Breadcrumb — inside leftSection (col 3–4) */
+
+.breadcrumb {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.breadcrumbSub {
+  /* matches home .panelDesc */
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.breadcrumbMain {
+  /* h2 styles — matches ECHO / GAZE labels on the home page */
+  text-transform: uppercase;
+}
+
+/* Col 9–10: product info */
+
+.detailPanel {
+  grid-column: 9 / span 2;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detailMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Product title — Body L (applied via global class + module override for color) */
+.detailName {
+  color: var(--color-text-primary);
+}
+
+/* Product description — Body M handles font/size/color via global class */
+.detailDesc {
+  margin: 0;
+}
+
+.detailPrice {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+
+.detailSwatches {
+  display: flex;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.swatch {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+/* Karaoke word states */
+
+.wordUnread {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.wordActive {
+  color: var(--color-text-primary);
+  opacity: 1;
+  font-weight: 500;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.wordRead {
+  color: var(--color-text-secondary);
+  opacity: 0.8;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+/* Col 11–12: thumbnail stack, right edge */
+
+.thumbnails {
+  grid-column: 11 / span 2;
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 72px;
+}
+
+.thumbnailItem {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.thumbnailActive {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.thumbnailInactive {
+  opacity: 0.2;
+  transform: scale(0.97);
+}
+
+/* --- Fixed bottom bar: waveform + transcription --- */
+
+.bottomBar {
+  position: fixed;
+  bottom: 32px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.waveformArea {
+  --waveform-color: var(--color-black);
+}
+
+.waveformResting {
+  --waveform-color: #716F6F;
+}
+
+.transcription {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.transLine {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: #000000;
+}
+
+.transLineItalic {
+  font-style: italic;
+}
+
+/* --- Toggle --- */
+
+.toggleWrap {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+}

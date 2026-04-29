@@ -1,0 +1,88 @@
+/* Asymmetric — peaks early, lingers mid */
+@keyframes bar-a {
+  0%, 100% { height: 3px; }
+  28% { height: 28px; }
+  62% { height: 10px; }
+}
+
+/* Double-peak — two energy bursts */
+@keyframes bar-b {
+  0%, 100% { height: 3px; }
+  20% { height: 16px; }
+  44% { height: 34px; }
+  72% { height: 8px; }
+}
+
+/* Quick rise — short amplitude */
+@keyframes bar-c {
+  0%, 100% { height: 3px; }
+  38% { height: 18px; }
+  65% { height: 6px; }
+}
+
+/* Triple irregular — mimics consonant-vowel rhythm */
+@keyframes bar-d {
+  0%, 100% { height: 3px; }
+  22% { height: 12px; }
+  48% { height: 7px; }
+  74% { height: 22px; }
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@keyframes dot-slow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+.waveform-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.waveform {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 40px;
+}
+
+/* Bars — animation-name / duration / delay set per-bar via inline styles */
+.waveform__bar {
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--waveform-color);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+/* Dots */
+.waveform__dot {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: var(--waveform-color);
+}
+
+.waveform--idle .waveform__dot {
+  animation: dot-pulse 1.4s ease-in-out infinite;
+}
+
+.waveform--listening .waveform__dot {
+  animation: dot-slow 2s ease-in-out infinite;
+}
+
+.waveform__label {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+}
