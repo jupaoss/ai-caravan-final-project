@@ -8,17 +8,27 @@ import { EchoShopV2 } from '../pages/EchoShopV2'
 import { ProductDetail } from '../pages/ProductDetail'
 import { Toggle } from './Toggle'
 
-const TOGGLE_PATHS = ['/gaze', '/echo-v2']
-
 export const AnimatedRoutes = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const showToggle = TOGGLE_PATHS.includes(location.pathname)
-  const activeMode = location.pathname === '/gaze' ? 'gaze' : 'echo'
 
+  // 👉 Mostrar toggle también en Product Detail
+  const showToggle =
+    location.pathname === '/gaze' ||
+    location.pathname === '/echo-v2' ||
+    location.pathname.startsWith('/product/')
+
+  // 👉 Detectar modo activo correctamente
+  const activeMode =
+    location.pathname.startsWith('/echo') ? 'echo' : 'gaze'
+
+  // 👉 Lógica centralizada del toggle
   const handleToggleChange = (mode: 'gaze' | 'echo') => {
-    if (mode === 'gaze') navigate('/gaze')
-    else navigate('/echo-v2', { state: { showResults: true } })
+    if (mode === 'gaze') {
+      navigate('/gaze')
+    } else {
+      navigate('/echo-v2', { state: { showResults: true } })
+    }
   }
 
   return (
@@ -32,9 +42,20 @@ export const AnimatedRoutes = () => {
           <Route path="/product/:id" element={<ProductDetail />} />
         </Routes>
       </AnimatePresence>
+
       {showToggle && (
-        <div style={{ position: 'fixed', bottom: '24px', right: '24px', zIndex: 200 }}>
-          <Toggle active={activeMode} onChange={handleToggleChange} />
+        <div
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 200,
+          }}
+        >
+          <Toggle
+            active={activeMode}
+            onChange={handleToggleChange}
+          />
         </div>
       )}
     </>

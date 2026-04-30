@@ -144,6 +144,16 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
+  border: 0.75px solid var(--color-border-subtle);
+  
+}
+
+.description {
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: var(--color-text-secondary);
+  margin: 0 0;
 }
 
 /* Karaoke word states */

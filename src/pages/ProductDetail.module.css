@@ -134,14 +134,14 @@
 }
 
 .swatch {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  border: none;
+  border: 1px solid var(--color-border-subtle);
   cursor: pointer;
   transition: box-shadow 0.15s;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
+  outline: 1px solid transparent;
+  outline-offset: 3px;
 }
 
 .swatch:focus-visible {

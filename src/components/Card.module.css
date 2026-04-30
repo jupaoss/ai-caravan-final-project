@@ -140,6 +140,7 @@
 .swatches {
   display: flex;
   gap: 6px;
+  
 }
 
 .swatch {
@@ -147,6 +148,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
+  border: 0.75px solid var(--color-border-subtle);
 }
 
 /* --- Description (echo-big) --- */

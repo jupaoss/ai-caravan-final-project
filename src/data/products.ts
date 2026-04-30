@@ -27,7 +27,7 @@ export const products: Product[] = [
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     rating: 4.6,
     reviews: 89,
-    colors: ['#000000', '#BDBDBD'],
+    colors: ['#1A542F', '#000000'],
     image: product1Url,
   },
   {
@@ -38,7 +38,7 @@ export const products: Product[] = [
     sizes: ['XS', 'S', 'M', 'L'],
     rating: 4.8,
     reviews: 134,
-    colors: ['#C7E11E', '#BDBDBD'],
+    colors: ['#000000', '#FFFFFF'],
     image: product2Url,
   },
   {
@@ -49,7 +49,7 @@ export const products: Product[] = [
     sizes: ['XS', 'S', 'M', 'L', 'XL'],
     rating: 4.9,
     reviews: 212,
-    colors: ['#9E0003'],
+    colors: ['#DAB993', '#000000'],
     image: product3Url,
     isNew: true,
   },
@@ -61,7 +61,7 @@ export const products: Product[] = [
     sizes: ['S', 'M', 'L'],
     rating: 4.4,
     reviews: 56,
-    colors: ['#FFFFFF', '#000000'],
+    colors: ['#9E0003', '#000000'],
     image: product4Url,
   },
   {

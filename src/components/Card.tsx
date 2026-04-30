@@ -16,7 +16,7 @@ interface CardProps {
 const ColorSwatch = ({ color }: { color: string }) => (
   <span
     className={styles.swatch}
-    style={{ background: color, border: color === '#FFFFFF' ? '1px solid var(--color-border-subtle)' : 'none' }}
+    style={{ background: color }}
   />
 )
 
