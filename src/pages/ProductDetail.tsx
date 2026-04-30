@@ -8,13 +8,18 @@ import { PageTransition } from '../components/PageTransition'
 import { products } from '../data/products'
 import styles from './ProductDetail.module.css'
 
-import detail1 from '../assets/images/product-detail/image 1.png'
-import detail2 from '../assets/images/product-detail/image 2.png'
-import detail3 from '../assets/images/product-detail/image 3.png'
-import detail4 from '../assets/images/product-detail/image 4.png'
-import detail5 from '../assets/images/product-detail/image 5.png'
+const allDetailImages = import.meta.glob<{ default: string }>(
+  '../assets/images/product-detail-*/image *.png',
+  { eager: true }
+)
 
-const detailImages = [detail1, detail2, detail3, detail4, detail5]
+function getDetailImages(productId: string): string[] {
+  const prefix = `../assets/images/product-detail-${productId}/`
+  return Object.entries(allDetailImages)
+    .filter(([path]) => path.startsWith(prefix))
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([, mod]) => mod.default)
+}
 
 const COLOR_LABELS: Record<string, string> = {
   '#000000': 'Black',
@@ -39,7 +44,16 @@ export const ProductDetail = () => {
   const navigate = useNavigate()
   const location = useLocation()
   const from: string = (location.state as any)?.from ?? 'gaze'
-  const product = products.find(p => p.id === id) ?? products[2]
+
+  const product = products.find(p => p.id === id)
+
+  // ✅ Manejo correcto si no existe el producto
+  if (!product) {
+    return <div style={{ padding: 40 }}>Product not found</div>
+  }
+
+  // ✅ AQUÍ se soluciona tu bug principal
+  const detailImages = getDetailImages(product.id)
 
   const [selectedColor, setSelectedColor] = useState(product.colors[0])
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
@@ -54,20 +68,25 @@ export const ProductDetail = () => {
     if (!firstImg || !panelItems?.length) return
 
     const mm = gsap.matchMedia()
+
     mm.add('(prefers-reduced-motion: no-preference)', () => {
       const ctx = gsap.context(() => {
         gsap.set(firstImg, { autoAlpha: 0, y: 16 })
         gsap.set(panelItems, { autoAlpha: 0, y: 16 })
+
         const tl = gsap.timeline()
         tl.to(firstImg, { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' })
         tl.to(panelItems, { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power2.out', stagger: 0.07 }, '+=0.1')
       })
+
       return () => ctx.revert()
     })
+
     mm.add('(prefers-reduced-motion: reduce)', () => {
       gsap.set(firstImg, { autoAlpha: 1, y: 0 })
       gsap.set(panelItems, { autoAlpha: 1, y: 0 })
     })
+
     return () => mm.revert()
   }, [])
 
@@ -89,7 +108,9 @@ export const ProductDetail = () => {
               to={from === 'echo-v2' ? '/echo-v2' : '/gaze'}
               state={from === 'echo-v2' ? { showResults: true } : undefined}
               className={styles.breadcrumbLink}
-            >Dresses</Link>
+            >
+              Dresses
+            </Link>
             <span className={styles.sep}>›</span>
             <span className={styles.breadcrumbCurrent}>{product.name}</span>
           </nav>
@@ -100,7 +121,9 @@ export const ProductDetail = () => {
           </div>
 
           {product.description.split('\n\n').map((para, i) => (
-            <p key={i} className={styles.description} data-panel-item>{para}</p>
+            <p key={i} className={styles.description} data-panel-item>
+              {para}
+            </p>
           ))}
 
           <div className={styles.field} data-panel-item>
@@ -148,14 +171,14 @@ export const ProductDetail = () => {
                     {openSection === section ? '−' : '+'}
                   </span>
                 </button>
+
                 <AnimatePresence initial={false}>
                   {openSection === section && (
                     <motion.div
-                      key="body"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.22, ease: 'easeInOut' }}
+                      transition={{ duration: 0.22 }}
                       style={{ overflow: 'hidden' }}
                     >
                       <p className={styles.accordionBody}>
@@ -168,12 +191,18 @@ export const ProductDetail = () => {
             ))}
           </div>
 
-          <button className={styles.addToBag} data-panel-item>ADD TO BAG</button>
+          <button className={styles.addToBag} data-panel-item>
+            ADD TO BAG
+          </button>
         </aside>
 
         <div className={styles.images}>
-          {detailImages.map((src, i) => (
-            <div key={i} className={styles.imageFrame} ref={i === 0 ? firstImageRef : undefined}>
+          {detailImages.map((src: string, i: number) => (
+            <div
+              key={i}
+              className={styles.imageFrame}
+              ref={i === 0 ? firstImageRef : undefined}
+            >
               <img
                 src={src}
                 alt={`${product.name} — view ${i + 1}`}
@@ -185,7 +214,10 @@ export const ProductDetail = () => {
       </div>
 
       <div className={styles.toggleWrap}>
-        <Toggle active="gaze" onChange={m => m === 'echo' && navigate('/echo-onboarding')} />
+        <Toggle
+          active="gaze"
+          onChange={m => m === 'echo' && navigate('/echo-onboarding')}
+        />
       </div>
     </PageTransition>
   )

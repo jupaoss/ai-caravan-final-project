@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { Header } from '../components/Header'
 import { Card } from '../components/Card'
-import { Toggle } from '../components/Toggle'
 import { PageTransition } from '../components/PageTransition'
 import { products } from '../data/products'
 import styles from './GazeShop.module.css'
@@ -74,9 +73,6 @@ export const GazeShop = () => {
         </div>
       </main>
 
-      <div className={styles.toggleWrap}>
-        <Toggle active="gaze" onChange={(m) => m === 'echo' && navigate('/echo-onboarding')} />
-      </div>
     </PageTransition>
   )
 }

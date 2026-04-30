@@ -5,12 +5,11 @@ import { Header } from '../components/Header'
 import { Card } from '../components/Card'
 import { Waveform, type WaveformState } from '../components/Waveform'
 import { Bubble } from '../components/Bubble'
-import { Toggle } from '../components/Toggle'
 import { PageTransition } from '../components/PageTransition'
 import { products } from '../data/products'
 import styles from './EchoShopV2.module.css'
 
-const THUMBNAIL_POOL = [products[4], products[0], products[2], products[3]]
+const THUMBNAIL_POOL = [products[0], products[1], products[2], products[3], products[4]]
 
 type TextPhase = 'prompt' | 'user-input' | 'system-response'
 
@@ -26,7 +25,7 @@ const PHASE_CONTENT: Record<TextPhase, { line1: string[]; line2: string[]; itali
     italic: true,
   },
   'system-response': {
-    line1: 'We have 4 suggestions that can be perfect'.split(' '),
+    line1: 'We have 5 suggestions that can be perfect'.split(' '),
     line2: 'for your night out.'.split(' '),
     italic: false,
   },
@@ -88,9 +87,10 @@ const showResults = (location.state as any)?.showResults ?? false
         if (titleEl) {
           tl.to(titleEl, { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power2.out' })
         }
-        tl.to(hero, { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' }, '+=0.03')
-        tl.to([left, detail], { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out', stagger: 0.03 }, '+=0.03')
-        tl.to(thumbs, { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power2.out' }, '+=0.03')
+        tl.to(hero,   { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' }, '<0.2')
+        tl.to(left,   { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' }, '<0.2')
+        tl.to(detail, { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' }, '<0.2')
+        tl.to(thumbs, { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power2.out' }, '<0.2')
       })
       return () => ctx.revert()
     })
@@ -206,7 +206,7 @@ const showResults = (location.state as any)?.showResults ?? false
             {/* Left column — breadcrumb anchored to hero's left edge */}
             <div className={styles.leftSection} ref={leftSectionRef}>
               <div className={styles.breadcrumb}>
-                <span className={styles.breadcrumbSub}>4 results for:</span>
+                <span className={styles.breadcrumbSub}>5 results for:</span>
                 <h2 className={styles.breadcrumbMain}>DRESSES</h2>
               </div>
             </div>
@@ -286,9 +286,6 @@ const showResults = (location.state as any)?.showResults ?? false
         </div>
       </div>
 
-      <div className={styles.toggleWrap}>
-        <Toggle active="echo" onChange={(m) => m === 'gaze' && navigate('/gaze')} />
-      </div>
     </PageTransition>
   )
 }
