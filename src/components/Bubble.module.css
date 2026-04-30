@@ -10,4 +10,5 @@
   letter-spacing: 0.03em;
   cursor: default;
   user-select: none;
+  align-self: flex-start;
 }

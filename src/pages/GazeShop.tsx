@@ -15,14 +15,21 @@ export const GazeShop = () => {
   const navigate = useNavigate()
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.set('[data-animate]', { opacity: 0, y: 16 })
-      const tl = gsap.timeline()
-      tl.to(['[data-animate="meta"]'], { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.09 })
-      tl.to('[data-animate="filters"]', { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
-      tl.to('[data-animate="card"]', { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.035 }, '-=0.25')
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.set('[data-animate]', { autoAlpha: 0, y: 16 })
+        const tl = gsap.timeline()
+        tl.to(['[data-animate="meta"]'], { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.07 })
+        tl.to('[data-animate="filters"]', { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power2.out' }, '-=0.3')
+        tl.to('[data-animate="card"]', { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power2.out', stagger: 0.05 }, '-=0.25')
+      })
+      return () => ctx.revert()
     })
-    return () => ctx.revert()
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set('[data-animate]', { autoAlpha: 1, y: 0 })
+    })
+    return () => mm.revert()
   }, [])
 
   return (

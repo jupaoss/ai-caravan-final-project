@@ -44,31 +44,41 @@ export const EchoOnboarding = () => {
 
   // Page entry: header → [counter + question stagger] → options → bottom
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.set('[data-animate]', { opacity: 0, y: 16 })
-      gsap.set('[data-step-line]', { opacity: 0, y: 16 })
-      const tl = gsap.timeline()
-      tl.to('[data-animate="header"]', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-      tl.to('[data-step-line="1"]', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.08 }, '-=0.35')
-      tl.to('[data-step-line="2"]', { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.3')
-      tl.to('[data-animate="bottom"]', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.35')
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.set('[data-animate]', { autoAlpha: 0, y: 16 })
+        gsap.set('[data-step-line]', { autoAlpha: 0, y: 16 })
+        const tl = gsap.timeline()
+        tl.to('[data-animate="header"]', { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' })
+        tl.to('[data-step-line="1"]', { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out', stagger: 0.08 }, '-=0.35')
+        tl.to('[data-step-line="2"]', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.07 }, '-=0.3')
+        tl.to('[data-animate="bottom"]', { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' }, '>')
+      })
+      return () => ctx.revert()
     })
-    return () => ctx.revert()
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set('[data-animate]', { autoAlpha: 1, y: 0 })
+      gsap.set('[data-step-line]', { autoAlpha: 1, y: 0 })
+    })
+    return () => mm.revert()
   }, [])
 
   // Step change — set incoming elements invisible before paint
   useLayoutEffect(() => {
     if (step === 0) return
-    gsap.set('[data-step-line]', { opacity: 0, y: 16 })
+    gsap.set('[data-step-line]', { autoAlpha: 0, y: 16 })
   }, [step])
 
   // Step change — same stagger reveal as initial entry, center content only
   useEffect(() => {
     if (step === 0) return
-    const tl = gsap.timeline()
-    tl.to('[data-step-line="1"]', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.08 })
-    tl.to('[data-step-line="2"]', { opacity: 1, y: 0, duration: 0.55, ease: 'power2.out' }, '-=0.3')
-    return () => { tl.kill() }
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline()
+      tl.to('[data-step-line="1"]', { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out', stagger: 0.08 })
+      tl.to('[data-step-line="2"]', { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.07 }, '-=0.3')
+    })
+    return () => ctx.revert()
   }, [step])
 
   // Transcription / waveform sequencing (unchanged)
@@ -80,24 +90,31 @@ export const EchoOnboarding = () => {
     const l2Para  = el.querySelector<HTMLElement>('[data-para="l2"]')!
 
     setWaveformState('system-talking')
-    gsap.set([l1Words, l2Words], { opacity: 0, y: 5 })
-    gsap.set([l1Para, l2Para], { color: '#000000' })
 
-    const tl = gsap.timeline({ delay: 0.5 })
-    tl.to(l1Words, { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: 'power3.out' })
-    tl.to(l1Para, { color: '#716F6F', duration: 0.6, ease: 'power1.inOut' }, '+=0.25')
-    tl.to(l2Words, { opacity: 1, y: 0, duration: 0.4, stagger: 0.08, ease: 'power3.out' }, '<')
-    tl.call(() => setWaveformState('resting'))
-    tl.to(l2Para, { color: '#716F6F', duration: 0.6, ease: 'power1.inOut' }, '+=1')
+    const ctx = gsap.context(() => {
+      gsap.set([l1Words, l2Words], { autoAlpha: 0, y: 5 })
+      gsap.set([l1Para, l2Para], { color: '#000000' })
 
-    return () => { tl.kill() }
+      // step 0: delay covers the full entry animation so words appear after the bottomBar;
+      // step 1: delay covers the step-change animation so words appear after both options
+      const delay = step === 0 ? 1.3 : 1.05
+      const tl = gsap.timeline({ delay })
+      tl.to(l1Words, { autoAlpha: 1, y: 0, duration: 0.42, stagger: 0.08, ease: 'power3.out' })
+      tl.to(l1Para, { color: '#716F6F', duration: 0.62, ease: 'power2.inOut' }, '+=0.25')
+      tl.to(l2Words, { autoAlpha: 1, y: 0, duration: 0.42, stagger: 0.08, ease: 'power3.out' }, '<')
+      tl.call(() => setWaveformState('resting'))
+      tl.to(l2Para, { color: '#716F6F', duration: 0.62, ease: 'power2.inOut' }, '+=1')
+    })
+
+    return () => ctx.revert()
   }, [step])
 
   const handleContinue = () => {
     if (step === 0) {
       // Fade out current step content, then swap
       gsap.to('[data-step-line]', {
-        opacity: 0, y: -8, duration: 0.2, ease: 'power2.in',
+        autoAlpha: 0, y: -8, duration: 0.22, ease: 'power2.in',
+        overwrite: 'auto',
         onComplete: () => setStep(1),
       })
     } else {
@@ -119,10 +136,11 @@ export const EchoOnboarding = () => {
             <h1 className={styles.question} data-step-line="1">
               WHEN I DESCRIBE A PRODUCT,<br />WHAT DO YOU PREFER?
             </h1>
-            <div className={styles.options} data-step-line="2">
+            <div className={styles.options}>
               {detailOptions.map((opt) => (
                 <button
                   key={opt.value}
+                  data-step-line="2"
                   className={`${styles.option} ${detail === opt.value ? styles.selected : ''}`}
                   onClick={() => setDetail(opt.value)}
                 >
@@ -143,10 +161,11 @@ export const EchoOnboarding = () => {
             <h1 className={styles.question} data-step-line="1">
               HOW DO YOU WANT TO<br />EXPLORE?
             </h1>
-            <div className={styles.options} data-step-line="2">
+            <div className={styles.options}>
               {navOptions.map((opt) => (
                 <button
                   key={opt.value}
+                  data-step-line="2"
                   className={`${styles.option} ${nav === opt.value ? styles.selected : ''}`}
                   onClick={() => setNav(opt.value)}
                 >

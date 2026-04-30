@@ -111,8 +111,15 @@
   gap: 8px;
 }
 
-/* Product title — Body L (applied via global class + module override for color) */
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+
 .detailName {
+  font-size: 16px;
   color: var(--color-text-primary);
 }
 
@@ -122,7 +129,7 @@
 }
 
 .detailPrice {
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.04em;
   color: var(--color-text-primary);
 }

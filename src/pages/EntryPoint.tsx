@@ -34,15 +34,22 @@ export const EntryPoint = () => {
   const config = modeConfig[mode]
 
   useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.set('[data-animate]', { opacity: 0, y: 16 })
-      const tl = gsap.timeline()
-      tl.to('[data-animate="heading"]', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-      tl.to(['[data-animate="logo"]', '[data-animate="panel"]'], {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.07,
-      }, '+=0.1')
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.set('[data-animate]', { autoAlpha: 0, y: 16 })
+        const tl = gsap.timeline()
+        tl.to('[data-animate="heading"]', { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' })
+        tl.to(['[data-animate="logo"]', '[data-animate="panel"]'], {
+          autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out', stagger: 0.07,
+        }, '+=0.1')
+      })
+      return () => ctx.revert()
     })
-    return () => ctx.revert()
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set('[data-animate]', { autoAlpha: 1, y: 0 })
+    })
+    return () => mm.revert()
   }, [])
 
   return (
@@ -64,8 +71,8 @@ export const EntryPoint = () => {
             alt=""
             initial={{ opacity: 0, scale: 1.04 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.65, ease: 'easeInOut' } }}
-            transition={{ duration: 0.55, ease: 'easeInOut' }}
+            exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.52, ease: 'easeIn' } }}
+            transition={{ duration: 0.55, ease: 'easeOut' }}
           />
         </AnimatePresence>
 
@@ -81,7 +88,7 @@ export const EntryPoint = () => {
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.32, ease: 'easeOut' }}
           >
             <div className={styles.panelIcon} aria-hidden>
               {mode === 'gaze' ? (

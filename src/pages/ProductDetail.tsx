@@ -53,14 +53,22 @@ export const ProductDetail = () => {
     const panelItems = panelRef.current?.querySelectorAll<HTMLElement>('[data-panel-item]')
     if (!firstImg || !panelItems?.length) return
 
-    gsap.set(firstImg, { opacity: 0, y: 16 })
-    gsap.set(panelItems, { opacity: 0, y: 16 })
-
-    const tl = gsap.timeline()
-    tl.to(firstImg, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' })
-    tl.to(panelItems, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.09 }, '+=0.1')
-
-    return () => { tl.kill() }
+    const mm = gsap.matchMedia()
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      const ctx = gsap.context(() => {
+        gsap.set(firstImg, { autoAlpha: 0, y: 16 })
+        gsap.set(panelItems, { autoAlpha: 0, y: 16 })
+        const tl = gsap.timeline()
+        tl.to(firstImg, { autoAlpha: 1, y: 0, duration: 0.62, ease: 'power2.out' })
+        tl.to(panelItems, { autoAlpha: 1, y: 0, duration: 0.52, ease: 'power2.out', stagger: 0.07 }, '+=0.1')
+      })
+      return () => ctx.revert()
+    })
+    mm.add('(prefers-reduced-motion: reduce)', () => {
+      gsap.set(firstImg, { autoAlpha: 1, y: 0 })
+      gsap.set(panelItems, { autoAlpha: 1, y: 0 })
+    })
+    return () => mm.revert()
   }, [])
 
   const toggleSection = (s: string) =>
