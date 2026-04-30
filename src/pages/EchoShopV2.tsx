@@ -8,7 +8,6 @@ import { Bubble } from '../components/Bubble'
 import { Toggle } from '../components/Toggle'
 import { PageTransition } from '../components/PageTransition'
 import { products } from '../data/products'
-import { type Layout } from '../utils/layoutEngine'
 import styles from './EchoShopV2.module.css'
 
 const THUMBNAIL_POOL = [products[4], products[0], products[2], products[3]]
@@ -36,8 +35,7 @@ const PHASE_CONTENT: Record<TextPhase, { line1: string[]; line2: string[]; itali
 export const EchoShopV2 = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const layout: Layout = (location.state as any)?.layout ?? 'value-first'
-  const showResults = (location.state as any)?.showResults ?? false
+const showResults = (location.state as any)?.showResults ?? false
 
   const [textPhase, setTextPhase] = useState<TextPhase>(showResults ? 'system-response' : 'prompt')
   const [waveformState, setWaveformState] = useState<WaveformState>(showResults ? 'resting' : 'system-talking')
