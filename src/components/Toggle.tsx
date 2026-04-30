@@ -1,6 +1,6 @@
 import styles from './Toggle.module.css'
 
-interface ToggleProps {
+export interface ToggleProps {
   active: 'gaze' | 'echo'
   onChange: (mode: 'gaze' | 'echo') => void
 }
