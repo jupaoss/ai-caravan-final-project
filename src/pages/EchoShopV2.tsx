@@ -40,6 +40,7 @@ export const EchoShopV2 = () => {
   const [waveformState, setWaveformState] = useState<WaveformState>(showResults ? 'resting' : 'system-talking')
   const [hasResults, setHasResults] = useState(showResults)
   const [activePoolIndex, setActivePoolIndex] = useState(0)
+  
 
   const activeProduct = THUMBNAIL_POOL[activePoolIndex]
 
@@ -50,6 +51,44 @@ export const EchoShopV2 = () => {
   const thumbnailsRef = useRef<HTMLDivElement>(null)
   const prevIndexRef = useRef(activePoolIndex)
   const exitTlRef = useRef<gsap.core.Timeline | null>(null)
+
+  // --- Reset words to invisible before paint on phase change ---
+  useLayoutEffect(() => {
+    if (showResults) return
+    const el = transcriptionRef.current
+    if (!el) return
+    gsap.set(el.querySelectorAll<HTMLElement>('[data-word]'), { autoAlpha: 0, y: 5 })
+  }, [textPhase])
+
+  // --- Word animation + automatic phase transitions ---
+  useEffect(() => {
+    if (showResults) return
+
+    const el = transcriptionRef.current!
+    const l1Words = el.querySelectorAll<HTMLElement>('[data-word="l1"]')
+    const l2Words = el.querySelectorAll<HTMLElement>('[data-word="l2"]')
+
+    setWaveformState(textPhase === 'user-input' ? 'resting' : 'system-talking')
+
+    const ctx = gsap.context(() => {
+      gsap.set([l1Words, l2Words], { autoAlpha: 0, y: 5 })
+
+      const tl = gsap.timeline()
+      tl.to(l1Words, { autoAlpha: 1, y: 0, duration: 0.42, stagger: 0.08, ease: 'power3.out' })
+      tl.to(l2Words, { autoAlpha: 1, y: 0, duration: 0.42, stagger: 0.08, ease: 'power3.out' }, '-=0.2')
+      tl.call(() => setWaveformState('resting'))
+
+      if (textPhase === 'prompt') {
+        tl.call(() => setTextPhase('user-input'), undefined, '+=1.5')
+      } else if (textPhase === 'user-input') {
+        tl.call(() => setTextPhase('system-response'), undefined, '+=1.0')
+      } else if (textPhase === 'system-response') {
+        tl.call(() => setHasResults(true), undefined, '+=1.0')
+      }
+    })
+
+    return () => ctx.revert()
+  }, [textPhase])
 
   // --- Animations: initial title ---
   useLayoutEffect(() => {
@@ -174,8 +213,8 @@ export const EchoShopV2 = () => {
               </div>
 
               <p className={`${styles.description} ${styles.detailDesc}`}>
-                {activeProduct.shortDescription ?? activeProduct.description}
-              </p>
+              {activeProduct.shortDescription ?? activeProduct.description}
+            </p>
 
               <div className={styles.detailSwatches}>
                 {activeProduct.colors.map((c) => (
@@ -213,10 +252,19 @@ export const EchoShopV2 = () => {
         )}
       </main>
 
-      {/* Bottom */}
-      <div ref={transcriptionRef}>
-        <p>{line1.join(' ')}</p>
-        <p>{line2.join(' ')}</p>
+      {/* Fixed bottom: waveform + transcription */}
+      <div className={styles.bottomBar}>
+        <div className={`${styles.waveformArea} ${waveformState === 'resting' ? styles.waveformResting : ''}`}>
+          <Waveform state={waveformState} />
+        </div>
+        <div ref={transcriptionRef} className={styles.transcription}>
+          <p className={`${styles.transLine}${italic ? ` ${styles.transLineItalic}` : ''}`}>
+            {line1.map((w, i) => <span key={i} data-word="l1">{w}{' '}</span>)}
+          </p>
+          <p className={`${styles.transLine}${italic ? ` ${styles.transLineItalic}` : ''}`}>
+            {line2.map((w, i) => <span key={i} data-word="l2">{w}{' '}</span>)}
+          </p>
+        </div>
       </div>
     </PageTransition>
   )

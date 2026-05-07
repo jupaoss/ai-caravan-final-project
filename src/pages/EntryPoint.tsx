@@ -1,4 +1,4 @@
-import { useState, useLayoutEffect } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import gsap from 'gsap'
@@ -32,7 +32,10 @@ export const EntryPoint = () => {
   const [mode, setMode] = useState<Mode>('gaze')
   const navigate = useNavigate()
   const config = modeConfig[mode]
+  const circleRef = useRef<SVGSVGElement>(null)
+  const circleOuterRef = useRef<HTMLDivElement>(null)
 
+  // Page entry animation
   useLayoutEffect(() => {
     const mm = gsap.matchMedia()
     mm.add('(prefers-reduced-motion: no-preference)', () => {
@@ -52,6 +55,18 @@ export const EntryPoint = () => {
     return () => mm.revert()
   }, [])
 
+  // Circles pulse on every mode change (including initial mount)
+  useEffect(() => {
+    gsap.fromTo(circleRef.current,
+      { autoAlpha: 0, scale: 0.8 },
+      { autoAlpha: 1, scale: 1, duration: 0.65, ease: 'power2.out' }
+    )
+    gsap.fromTo(circleOuterRef.current,
+      { autoAlpha: 0, scale: 0.8 },
+      { autoAlpha: 0.4, scale: 1, duration: 0.65, ease: 'power2.out', delay: 0.08 }
+    )
+  }, [mode])
+
   return (
     <PageTransition className={styles.page}>
       <div className={styles.heading} data-animate="heading">
@@ -60,8 +75,10 @@ export const EntryPoint = () => {
       </div>
 
       <div className={styles.heroArea}>
-        <div className={styles.circleOuter} />
-        <div className={styles.circle} />
+        <div ref={circleOuterRef} className={styles.circleOuter} />
+        <svg ref={circleRef} className={styles.circle} viewBox="0 0 400 400" fill="none">
+          <circle cx="200" cy="200" r="199" stroke="var(--color-border-subtle)" strokeWidth="1" strokeDasharray="1 2" />
+        </svg>
 
         <AnimatePresence>
           <motion.img
@@ -105,7 +122,13 @@ export const EntryPoint = () => {
             </div>
             <h2 className={styles.panelLabel}>{config.label}</h2>
             <p className={styles.panelDesc}>{config.description}</p>
-            <button className={styles.enterBtn} onClick={() => navigate(config.path)}>
+            <button className={styles.enterBtn} onClick={() => {
+              if (mode === 'echo' && sessionStorage.getItem('echoOnboardingDone') === 'true') {
+                navigate('/echo-v2')
+              } else {
+                navigate(config.path)
+              }
+            }}>
               ENTER
             </button>
           </motion.div>

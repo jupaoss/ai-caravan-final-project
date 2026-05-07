@@ -20,14 +20,19 @@ export const AnimatedRoutes = () => {
 
   // 👉 Detectar modo activo correctamente
   const activeMode =
-    location.pathname.startsWith('/echo') ? 'echo' : 'gaze'
+    location.pathname.startsWith('/echo') ||
+    (location.state as any)?.from === 'echo-v2'
+      ? 'echo'
+      : 'gaze'
 
   // 👉 Lógica centralizada del toggle
   const handleToggleChange = (mode: 'gaze' | 'echo') => {
     if (mode === 'gaze') {
       navigate('/gaze')
-    } else {
+    } else if (sessionStorage.getItem('echoOnboardingDone') === 'true') {
       navigate('/echo-v2', { state: { showResults: true } })
+    } else {
+      navigate('/echo-onboarding')
     }
   }
 
